@@ -1,4 +1,4 @@
-<script>
+<script @if(isset($nonce))nonce="{{ $nonce }}"@endif>
 (() => {
     if (window.__nativewatch) return;
     window.__nativewatch = true;

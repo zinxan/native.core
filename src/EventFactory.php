@@ -11,7 +11,7 @@ use ZXN\NativeWatch\Core\Contracts\ContextProvider;
 
 final readonly class EventFactory
 {
-    public const string SDK_VERSION = '0.2.0';
+    public const string SDK_VERSION = '0.2.1';
 
     /**
      * The keys that an event built elsewhere may set itself.

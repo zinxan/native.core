@@ -111,6 +111,18 @@ it('reads the stack of Safari', function (): void {
     expect(sentOccurrences()[0]['exception']['frames'][0])->toMatchArray(['file' => '/build/assets/app.js', 'line' => 12, 'function' => 'renderNote']);
 });
 
+it('preserves whether a manually reported browser error was handled', function (): void {
+    fakeNativeWatch();
+
+    $this->postJson('/_nativewatch/browser-errors', [
+        'type' => 'Error',
+        'message' => 'That file is not a supported media or 3D format.',
+        'handled' => true,
+    ])->assertNoContent();
+
+    expect(sentOccurrences()[0]['context']['crash']['handled'])->toBeTrue();
+});
+
 it('rejects a browser error without a message', function (): void {
     fakeNativeWatch();
 
@@ -153,3 +165,11 @@ it('reports an error of a Blade view by its template, not its compiled file', fu
         ->and($event['exception']['frames'][0]['code'])->toBeNull()
         ->and($event['context']['view'])->toEndWith('views/note.blade.php');
 });
+
+it('renders a supplied CSP nonce without allowing it to change script attributes', function (string $nonce): void {
+    fakeNativeWatch();
+
+    $html = Blade::render('@nativewatchScripts($nonce)', ['nonce' => $nonce]);
+
+    expect($html)->toContain('<script nonce="'.e($nonce).'">');
+})->with(['request-nonce', 'nonce" onload="alert(1)']);

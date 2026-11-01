@@ -24,4 +24,15 @@ the [privacy guide](https://native.watch/docs/privacy-and-consent).
 
 Requires PHP 8.4 or newer and Illuminate 11, 12 or 13. Licensed under MIT.
 
+To report uncaught errors and unhandled promise rejections from a web view, add
+`@nativewatchScripts` to its Blade layout. If your Content Security Policy uses
+a nonce, pass the nonce generated for that response:
+
+```blade
+@nativewatchScripts(Vite::cspNonce())
+```
+
+The SDK escapes the nonce and posts browser reports to the app's local server.
+Normal consent, redaction and delivery settings still apply.
+
 Read the [SDK contribution guide](CONTRIBUTING.md) before opening a pull request.
