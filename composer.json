@@ -1,0 +1,25 @@
+{
+    "name": "zinxan/native-core",
+    "description": "The shared NativeWatch client that zinxan/native-desktop and zinxan/native-mobile build on.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.4",
+        "illuminate/contracts": "^11.0|^12.0|^13.0",
+        "illuminate/http": "^11.0|^12.0|^13.0",
+        "illuminate/process": "^11.0|^12.0|^13.0",
+        "illuminate/support": "^11.0|^12.0|^13.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZXN\\NativeWatch\\Core\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "homepage": "https://native.watch",
+    "support": {
+        "docs": "https://native.watch/docs",
+        "issues": "https://github.com/zinxan/native.core/issues",
+        "source": "https://github.com/zinxan/native.core"
+    }
+}
