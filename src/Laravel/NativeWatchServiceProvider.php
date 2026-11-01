@@ -202,7 +202,11 @@ abstract class NativeWatchServiceProvider extends ServiceProvider
 
         $this->callAfterResolving('blade.compiler', function (BladeCompiler $blade): void {
             // Blade caches what a directive returns, so the view reads the config when it renders.
-            $blade->directive('nativewatchScripts', fn (): string => "<?php echo view('nativewatch::scripts')->render(); ?>");
+            $blade->directive('nativewatchScripts', function (string $expression): string {
+                $nonce = $expression !== '' ? $expression : 'null';
+
+                return "<?php echo view('nativewatch::scripts', ['nonce' => {$nonce}])->render(); ?>";
+            });
         });
     }
 

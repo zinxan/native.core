@@ -25,6 +25,7 @@ final readonly class BrowserErrorController
             'stack' => ['nullable', 'string', 'max:16384'],
             'url' => ['nullable', 'string', 'max:2048'],
             'unhandled_rejection' => ['nullable', 'boolean'],
+            'handled' => ['nullable', 'boolean'],
         ]);
 
         $url = (string) ($error['url'] ?? '');
@@ -40,7 +41,7 @@ final readonly class BrowserErrorController
                 'browser' => ['url' => $url, 'user_agent' => $request->userAgent()],
                 'crash' => [
                     'mechanism' => ($error['unhandled_rejection'] ?? false) ? 'webview.unhandledrejection' : 'webview',
-                    'handled' => false,
+                    'handled' => $error['handled'] ?? false,
                 ],
             ],
         ]);
