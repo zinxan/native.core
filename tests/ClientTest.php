@@ -175,7 +175,7 @@ it('completes an event that was built elsewhere', function (): void {
         && $request['breadcrumbs'] === []);
 });
 
-it('keeps long exception messages within the ingest contract', function (bool $native): void {
+it('truncates long exception messages without splitting UTF-8 characters', function (bool $native): void {
     Http::fake(['zxguard.test/*' => Http::response(status: 202)]);
     $client = client();
     $message = str_repeat('é', 8_193);
@@ -189,5 +189,5 @@ it('keeps long exception messages within the ingest contract', function (bool $n
     $client->flush();
 
     Http::assertSent(fn (Request $request): bool => mb_strlen($request['exception']['value']) === 8_192
-        && validator($request->data(), (new App\Http\Requests\Api\V1\StoreOccurrenceRequest)->rules())->passes());
+        && mb_check_encoding($request['exception']['value'], 'UTF-8'));
 })->with([false, true]);

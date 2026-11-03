@@ -27,7 +27,10 @@ final class NativeWatchSyncFinished extends Notification
 
 it('records sent and failed notifications with their channel', function (): void {
     fakeNativeWatch();
-    $user = App\Models\User::factory()->make();
+    $user = new class extends Illuminate\Foundation\Auth\User
+    {
+        use Illuminate\Notifications\Notifiable;
+    };
 
     Illuminate\Support\Facades\Schema::create('notifications', function (Illuminate\Database\Schema\Blueprint $table): void {
         $table->uuid('id')->primary();

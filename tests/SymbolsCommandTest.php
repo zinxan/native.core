@@ -12,7 +12,7 @@ beforeEach(function (): void {
     $this->app->register(DesktopServiceProvider::class);
     config(['nativewatch.url' => 'http://zxguard.test']);
     putenv('NATIVEWATCH_RELEASE_TOKEN=nwr_ci-symbol-secret');
-    $this->dwarf = __DIR__.'/../../../tests/Fixtures/Symbols/CrashFixture.dwarf';
+    $this->dwarf = __DIR__.'/Fixtures/Symbols/CrashFixture.dwarf';
     $this->receipt = ['symbols' => [['imageUuid' => 'bf2dbb4a-b545-3baa-a8a7-8b40b5ea12c5', 'architecture' => ['value' => 'arm64'], 'sha256' => hash_file('sha256', $this->dwarf)]]];
 });
 
