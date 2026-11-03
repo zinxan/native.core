@@ -22,18 +22,21 @@ Composer will resolve a lock file locally; libraries do not commit it. Tests use
 Orchestra Testbench and fake HTTP, without the private server, production keys
 or a running NativePHP app. `composer test` runs Pint, PHPStan, 100% PHP type coverage and Pest. GitHub
 also validates Composer metadata, audits dependencies and runs Pest on PHP 8.4
-and 8.5 with Laravel 11, 12 and 13.
+and 8.5 with Laravel 12 and 13.
 
 For one Laravel version, select its matching Testbench before installing:
 
 ```sh
-composer require --dev 'orchestra/testbench:^9.0' --no-update
+composer require --dev 'orchestra/testbench:^10.0' --no-update
 COMPOSER_ROOT_VERSION=0.2.x-dev composer update
 composer test
 ```
 
-Testbench 9 tests Laravel 11; Testbench 10 tests Laravel 12; Testbench 11 tests
-Laravel 13. Do not commit a local matrix selection to `composer.json`.
+Testbench 10 tests Laravel 12; Testbench 11 tests Laravel 13. Do not commit a local matrix selection to `composer.json`.
+
+The runtime dependency constraint still accepts Laravel 11, but CI does not
+verify it: Composer blocks its current releases due to security advisories.
+No advisory ignores or disabled security gates are used.
 
 Native reporting changes also require a compiled Release app, a real crash and
 relaunch, receiver assertions and screenshots. Identify the platform and

@@ -8,7 +8,7 @@ Verified on 3 November 2026 with PHP 8.4.27 and Laravel 13.
   110 Pest tests and 542 assertions passed.
 - `git diff --check`: passed.
 
-The workflow repeats Pest across PHP 8.4/8.5 and Laravel 11/12/13. Its Quality
+The workflow repeats Pest across PHP 8.4/8.5 and Laravel 12/13. Its Quality
 job validates Composer, audits dependencies and runs lint, static analysis and
 type coverage. Every job runs for every pull request, without path filters.
 Both Actions are pinned to full commit hashes; checkout credentials are not
@@ -30,3 +30,8 @@ regressions run without a production endpoint.
 PHPStan also found redundant type guards around scalar console inputs whose
 Laravel command signatures already enforce their type. Only those guards were
 removed; optional source-root and CI credential validation remain in place.
+
+The initial GitHub Laravel 11 matrix jobs were blocked by Composer security
+advisories, including PKSA-b41t-wbzk-9q51 and PKSA-d5tc-s1qs-h781. CI covers
+Laravel 12 and 13 without disabling advisory blocking. Runtime constraints are
+unchanged, but this pipeline does not establish Laravel 11 compatibility.
