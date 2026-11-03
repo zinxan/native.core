@@ -23,9 +23,6 @@ final class ReleaseCommand extends Command
     {
         $path = $this->option('path') ?? base_path();
         $version = $this->argument('version');
-        if (! is_string($path) || ! is_string($version)) {
-            return self::FAILURE;
-        }
         try {
             if ($this->option('id-only')) {
                 $this->line($builder->buildId($path, $version));

@@ -6,12 +6,12 @@ use ZXN\NativeWatch\Core\StackFrames;
 
 it('starts with the line that threw and marks frames of the app', function (): void {
     $exception = new RuntimeException('Boom');
-    $basePath = dirname(__DIR__, 3);
+    $basePath = dirname(__DIR__);
 
     $frames = new StackFrames($basePath)->fromThrowable($exception);
 
     expect($frames[0])
-        ->file->toBe('packages/native-core/tests/StackFramesTest.php')
+        ->file->toBe('tests/StackFramesTest.php')
         ->line->toBe(__LINE__ - 7)
         ->in_app->toBeTrue();
 
@@ -32,7 +32,7 @@ it('sends the source code around the line of the throw site and of app frames', 
     $line = __LINE__ + 1;
     $exception = new RuntimeException('Boom');
 
-    $frames = new StackFrames(dirname(__DIR__, 3), codeLines: 2)->fromThrowable($exception);
+    $frames = new StackFrames(dirname(__DIR__), codeLines: 2)->fromThrowable($exception);
     $code = $frames[0]['code'];
 
     expect($code)->not->toBeNull()
@@ -46,7 +46,7 @@ it('sends the source code around the line of the throw site and of app frames', 
 });
 
 it('sends no source code when it is turned off', function (): void {
-    $frames = new StackFrames(dirname(__DIR__, 3), codeLines: 0)->fromThrowable(new RuntimeException('Boom'));
+    $frames = new StackFrames(dirname(__DIR__), codeLines: 0)->fromThrowable(new RuntimeException('Boom'));
 
     expect(array_column($frames, 'code'))->each->toBeNull();
 });

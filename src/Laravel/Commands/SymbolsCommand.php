@@ -23,7 +23,7 @@ final class SymbolsCommand extends Command
         try {
             $path = $this->argument('path');
             $root = $this->option('source-root');
-            if (! is_string($path) || ! is_string($root) || $root === '') {
+            if (! is_string($root) || $root === '') {
                 throw new RuntimeException('Pass --source-root with the absolute checkout root used to compile this build.');
             }
             $request = $connection->request();

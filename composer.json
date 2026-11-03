@@ -21,5 +21,37 @@
         "docs": "https://native.watch/docs",
         "issues": "https://github.com/zinxan/native.core/issues",
         "source": "https://github.com/zinxan/native.core"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.9",
+        "laravel/pint": "^1.27",
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
+        "pestphp/pest": "^3.8|^4.0|^5.0",
+        "pestphp/pest-plugin-laravel": "^3.0|^4.0|^5.0",
+        "pestphp/pest-plugin-type-coverage": "^3.0|^4.0|^5.0",
+        "zinxan/native-desktop": "^0.2"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZXN\\NativeWatch\\Core\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": [
+            "@test:lint",
+            "@test:types",
+            "@test:type-coverage",
+            "@test:unit"
+        ],
+        "test:lint": "pint --test",
+        "test:types": "phpstan analyse --memory-limit=1G",
+        "test:unit": "pest --compact",
+        "test:type-coverage": "pest --type-coverage --min=100"
     }
 }
